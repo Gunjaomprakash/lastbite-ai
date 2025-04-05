@@ -1,47 +1,43 @@
 #!/bin/bash
 
-# Create root project folder
-mkdir lastbite-ai && cd lastbite-ai
+# Root directory
+mkdir lastbite-source && cd lastbite-source
 
-# Frontend structure
-mkdir -p frontend/public
-mkdir -p frontend/src/components
-mkdir -p frontend/src/pages
-mkdir -p frontend/src/utils
-touch frontend/src/App.js
-touch frontend/src/index.js
-touch frontend/README.md
+# ---------------------
+# Frontend
+# ---------------------
+mkdir -p frontend/src/{components,pages,utils}
+echo "// App entry point" > frontend/src/App.js
+echo "// Index file" > frontend/src/index.js
+echo "// API utility functions" > frontend/src/utils/api.js
+echo "# Frontend README" > frontend/README.md
 
-# Backend structure
-mkdir -p backend/api
-mkdir -p backend/models
-mkdir -p backend/services
-mkdir -p backend/utils
-touch backend/main.py
-touch backend/requirements.txt
-touch backend/README.md
+# ---------------------
+# Backend
+# ---------------------
+mkdir -p backend/{routes,ml,services}
+echo "# Main backend entry point" > backend/main.py
+echo "# API routes" > backend/routes/api.py
+echo "# Expiry model logic" > backend/ml/expiry_model.py
+echo "# GPT generator logic" > backend/ml/gpt_generator.py
+echo "# Utility functions" > backend/services/utils.py
+echo "# Backend dependencies" > backend/requirements.txt
+echo "# Backend README" > backend/README.md
 
-# ML model & notebook
-mkdir -p ml_model
-touch ml_model/expiry_model.py
-touch ml_model/train_model.ipynb
-touch ml_model/README.md
-
-# Firebase config
-mkdir -p firebase/functions
-touch firebase/firebase.json
-touch firebase/functions/index.js
-
-# Docs and assets
-mkdir -p docs
+# ---------------------
+# Shared
+# ---------------------
 mkdir -p assets/images
+mkdir docs
 
-# Git essentials
-touch .gitignore
-touch README.md
-touch LICENSE
+# ---------------------
+# Project Essentials
+# ---------------------
+echo "# LastBite AI" > README.md
+echo "# Ignore files" > .gitignore
+echo "# License information" > LICENSE
 
-# Init Git
+# Git init
 git init
 
-echo "✅ LastBite AI project structure created!"
+echo "✅ LastBite AI MVP structure created successfully!"
