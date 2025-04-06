@@ -134,25 +134,22 @@ const ScanPage = () => {
 
       // Prepare form data
       const formData = new FormData();
-      formData.append('image', blob, 'captured-image.jpg');
+      formData.append('image', blob, 'capture.jpg');
 
       // Define the server URL
-      const serverUrl = "https://10.136.138.133:5001/api/classify?image="; // Replace with your server URL
+      const serverUrl = "https://10.136.138.133:5001/api/classify"; // Replace with your server URL
 
       // Send the image to the server
       const response = await axios.post(serverUrl, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 10000, // Set a timeout of 10 seconds
       });
 
-      // Handle the server response
-      if (response.data && response.data.imageUrl) {
-        setResponseImage(response.data.imageUrl); // Display the response image
-      } else {
-        alert('Image uploaded successfully, but no response image received.');
-      }
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      alert('Failed to upload image. Please check the console for details.');
+      const { fruit, state } = response.data;
+      alert(`Prediction: ${state} ${fruit}`);
+    } catch (err) {
+      console.error('Error uploading image:', err);
+      alert('Upload failed—see console.');
     }
   };
 
