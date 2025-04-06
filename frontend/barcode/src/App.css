@@ -125,3 +125,35 @@
   background-color: #4CAF50;
   color: white;
 }
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #000;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+}
+
+.nav-button {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button.active,
+.nav-button:hover {
+  background-color: #4CAF50;
+}
