@@ -6,7 +6,6 @@ from flask import Blueprint, current_app, jsonify, abort
 
 bp = Blueprint('inventory', __name__)
 
-# PROJECT_ROOT/backend/app/routes -> go up 3 levels to backend/, then into data/
 PROJECT_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '..')
 )
@@ -23,9 +22,15 @@ def get_inventory(user_uid):
             reader = csv.DictReader(f)
             for row in reader:
                 if row.get('user_uid') == user_uid:
+                    # Safely parse quantity
+                    qty_str = row.get('quantity', '').strip()
+                    try:
+                        qty = int(qty_str)
+                    except (ValueError, TypeError):
+                        qty = 0
                     links.append({
-                        'product_uid': row['product_uid'],
-                        'quantity': int(row.get('quantity', 0))
+                        'product_uid': row.get('product_uid'),
+                        'quantity': qty
                     })
     except Exception as e:
         current_app.logger.error(f"Error reading {LINK_FILE}: {e}")
