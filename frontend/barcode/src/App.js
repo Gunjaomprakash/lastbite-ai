@@ -118,6 +118,7 @@ const ScanPage = () => {
   const [barcode, setBarcode] = useState(''); // State to store the detected barcode
   const [lastDetectedTime, setLastDetectedTime] = useState(0); // Track the last detection time
   const [isBarcodeScannerActive, setIsBarcodeScannerActive] = useState(false); // Toggle between image capture and barcode scanner
+  const [responseImage, setResponseImage] = useState(null); // State to store the server response image
 
   // Function to capture an image and send it to the server
   const captureImage = async () => {
@@ -136,8 +137,7 @@ const ScanPage = () => {
       formData.append('image', blob, 'capture.jpg');
 
       // Define the server URL
-      // const serverUrl = "https://10.136.138.133:5001/api/classify/model"; // Replace with your server URL
-      const serverUrl = "https://10.136.138.133:5001/api/classify/openai"; // Replace with your server URL
+      const serverUrl = "https://10.136.138.133:5001/api/classify"; // Replace with your server URL
 
       // Send the image to the server
       const response = await axios.post(serverUrl, formData, {
@@ -237,7 +237,7 @@ const ScanPage = () => {
           ref={scannerRef}
           style={{
             width: '640px',
-            height: '380px',
+            height: '480px',
             backgroundColor: 'black',
           }}
         ></div>
@@ -275,7 +275,16 @@ const ScanPage = () => {
         </div>
       )}
 
-      
+      {/* Display Response Image */}
+      {responseImage && (
+        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <img
+            src={responseImage}
+            alt="Response"
+            style={{ width: '100%', maxWidth: '400px', marginBottom: '20px' }}
+          />
+        </div>
+      )}
     </div>
   );
 };
